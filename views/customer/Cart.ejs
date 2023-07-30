@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/customer/cart.css">
+
+
+</head>
+
+<body>
+
+    <%-include('navbar') -%>
+
+
+        <div class="container">
+
+            <%- include('categorybar') -%>
+
+
+                <div class="content">
+
+
+                    <% if(allProducts!=undefined && allProducts.length!=0){%>
+                        <main>
+                            <div class="basket">
+
+                                <div class="basket-labels">
+                                    <ul>
+                                        <li class="item item-heading">Item</li>
+                                        <li class="price">Price</li>
+                                        <li class="quantity">Quantity</li>
+                                        <li class="subtotal">Subtotal</li>
+                                    </ul>
+                                </div>
+
+                                <% let subtotalAmount=0 %>
+
+                                    <% for(product of allProducts){%>
+
+                                        <div class="basket-product">
+                                            <div class="item">
+                                                <div class="product-image">
+                                                    <img src="images/<%=product.productCategory%> Category/<%=product.productId%>_1.jpg"
+                                                        alt="Placholder Image 2" class="product-frame">
+                                                </div>
+                                                <div class="product-details">
+                                                    <h1><strong>
+                                                            <%=product.productName%>
+                                                        </strong></h1>
+                                                    <p>In Stock - <span class="product-stock">
+                                                            <%=product.productQuantity%>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="price">
+                                                <%=product.productPrice%>
+                                            </div>
+                                            <div class="quantity">
+                                                <input type="number" value="<%=product.productUserQuantity%>" min="1"
+                                                    class="quantity-field">
+                                            </div>
+                                            <div class="subtotal">
+                                                <%=product.productPrice%>
+                                            </div>
+                                            <a href="/removeCartItem?productId=<%=product.productId%>">
+                                                <div class="remove">
+                                                    <button>Remove</button>
+                                                </div>
+                                            </a>
+                                            <span class="product-id">
+                                                <%=product.productId%>
+                                            </span>
+
+                                        </div>
+                                        <% subtotalAmount=subtotalAmount + product.productPrice %>
+
+                                            <% } %>
+
+                            </div>
+
+
+                            <aside>
+                                <div class="summary">
+                                    <div class="summary-total-items"><span class="total-items"></span> Items in your Bag
+                                    </div>
+                                    <div class="summary-subtotal">
+                                        <div class="subtotal-title">Subtotal</div>
+                                        <div class="subtotal-value final-value summary-subtotal-price"
+                                            id="basket-subtotal"><%=subtotalAmount%></div>
+                                    </div>
+                                    <div class="summary-subtotal">
+                                        <div class="subtotal-title">Delivery Charges</div>
+                                        <div class="subtotal-value final-value summary-delivery-charges"
+                                            id="basket-subtotal">0</div>
+                                    </div>
+
+                                    <div class="summary-total">
+                                        <div class="total-title">Total</div>
+                                        <div class="total-value final-value summary-total-price" id="basket-total">
+                                            <%=subtotalAmount%></div>
+                                    </div>
+                                    <a href="/placeOrder">
+                                        <div class="summary-checkout">
+                                            <button class="checkout-cta">Place Order</button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </aside>
+                        </main>
+
+                        <%}else{%>
+
+                            <h1 class="empty-cart-message">Cart is Empty</h1>
+                            <%}%>
+
+                </div>
+
+        </div>
+
+
+        <script>
+
+            const updatePrices = () => {
+
+                const basketProducts = document.getElementsByClassName("basket-product");
+                const summarySubtotalPriceElement = document.getElementsByClassName("summary-subtotal-price")[0];
+                const summaryDeliveryChargesElement = document.getElementsByClassName("summary-delivery-charges")[0];
+                const summaryTotalPriceElement = document.getElementsByClassName("summary-total-price")[0];
+
+                let summarySubtotal = 0;
+
+                for (product of basketProducts) {
+
+                    const priceElement = product.getElementsByClassName("price")[0];
+                    const quantityElement = product.getElementsByClassName("quantity-field")[0];
+                    const stockElement = product.getElementsByClassName("product-stock")[0];
+                    const subtotalElement = product.getElementsByClassName("subtotal")[0];
+
+
+                    const price = Number(priceElement.textContent);
+                    const stock = Number(stockElement.textContent);
+
+                    if (Number(quantityElement.value) < 1) {
+                        alert("Quantity must be atleast 1");
+                        quantityElement.value = 1;
+
+                    }
+                    if (Number(quantityElement.value) > stock) {
+                        alert("Currently only " + stock + " items available inStock");
+                        quantityElement.value = stock;
+                    }
+
+                    const quantity = Number(quantityElement.value);
+
+
+
+                    const subtotal = price * quantity;
+                    subtotalElement.textContent = subtotal;
+
+
+                    summarySubtotal = summarySubtotal + subtotal;
+
+                }
+
+
+                summarySubtotalPriceElement.textContent = summarySubtotal;
+                let summaryTotal = summarySubtotal;
+                summaryTotalPriceElement.textContent = summaryTotal;
+
+
+            }
+
+            
+
+
+            const basketProducts = document.getElementsByClassName("basket-product");
+
+            for (product of basketProducts) {
+
+                const quantityElement = product.getElementsByClassName("quantity-field")[0];
+                const productIdElement = product.getElementsByClassName("product-id")[0];
+
+                quantityElement.addEventListener("change", () => {
+                    updatePrices();
+                    const quantity = Number(quantityElement.value);
+                    const productId = (productIdElement.textContent).trim();
+                    console.log("New Quantity is ", quantity, " and the productId is", productId);
+
+                    var httpRequest = new XMLHttpRequest();
+
+                    httpRequest.onreadystatechange = () => {
+                        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                            console.log(httpRequest.responseText);
+                        }
+                    }
+                    httpRequest.open("POST", `/updateProductQuantity?productId=${productId}&quantity=${quantity}`, true);
+                    httpRequest.send();
+
+                })
+            }
+
+
+
+
+
+        </script>
+
+</body>
+
+</html>

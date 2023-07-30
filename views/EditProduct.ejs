@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('sidebar') -%>
+
+
+
+            <div class="content">
+
+                <h1>Edit A Product</h1>
+
+                <% for(let category of allCategories){ %>
+
+                    <h2 class="specificCategory">
+                        <%=category.name%>
+                    </h2>
+
+                    <% let flag=false %>
+
+                        <div class="categories">
+
+                            <% for(let product of allProducts){ %>
+
+                                <% if(product.category==category.name ){ %>
+
+                                    <% flag=true %>
+                                        <a href="/editSelectedProduct?productId=<%=product._id%>">
+                                            <div class="col-4">
+                                                <img src="images/<%=category.name%> Category/<%=product._id%>_1.jpg"
+                                                    alt="">
+                                                <h3>
+                                                    <%=product.name%>
+                                                </h3>
+                                                <h4>
+                                                    <%=product.price%>RS
+                                                </h4>
+                                              
+                                            </div>
+
+
+                                        </a>
+                                        <% } %>
+                                            <% } %>
+                        </div>
+
+                        <% if(flag==false){ %>
+                            <p class="noProductAvailable">Sorry! Currently No <%=category.name%> Available</p>
+                            <% } %>
+
+                                <% } %>
+
+
+            </div>
+
+    </div>
+
+</body>
+
+</html>

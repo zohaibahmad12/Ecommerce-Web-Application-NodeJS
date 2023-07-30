@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/customer/message.css">
+
+
+</head>
+
+<body>
+    <%-include('navbar') -%>
+
+
+        <div class="container">
+
+            <%- include('categorybar') -%>
+
+
+                <div class="content">
+
+                    <% if(message=="cart" ){ %>
+
+                        <h1>Product Added to Cart Successfully</h1>
+
+                        <div class="message-buttons">
+                            <a href="/myCart"><button class="go-to-cart">Go To Cart</button></a>
+                            <a href="/"><button class="back-to-home">Back To Home Page</button></a>
+                        </div>
+
+                        <% }else if(message=="order" ){ %>
+
+                            <h1>Order Placed Successfully</h1>
+
+                            <div class="message-buttons">
+                                <a href="/myOrders"><button class="go-to-cart">Go To Orders</button></a>
+                                <a href="/"><button class="back-to-home">Back To Home Page</button></a>
+                            </div>
+
+                            <% }else if(message=="productAlreadyExistInCart"){ %>
+                                <h1>This Product is already in Cart</h1>
+
+                                <div class="message-buttons">
+                                    <a href="/myCart"><button class="go-to-cart">Go To Cart</button></a>
+                                    <a href="/"><button class="back-to-home">Back To Home Page</button></a>
+                                </div>
+
+                                <%}%>
+
+                </div>
+
+        </div>
+
+
+
+</body>
+
+</html>

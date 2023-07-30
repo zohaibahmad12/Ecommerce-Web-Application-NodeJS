@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/authentication.css">
+    <title>Login Page</title>
+
+</head>
+
+<body>
+    <div class="container login">
+        <form id="login-form">
+            <h1>Login</h1>
+
+            <% if( message=="Login Successful" ){ %>
+
+                <h3 class="success">Login Successful</h3>
+
+                <% } else if( message=="Not Exist" ){ %>
+
+                    <h3 class="warning">***Account Not Exist***</h3>
+                    <% } else if( message=="Incorrect Password" ){ %>
+
+                        <h3 class="warning">***Incorrect Password***</h3>
+                        <% } %>
+
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email">
+                                <span id="email-error" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password">
+                                <span id="password-error" class="error-message"></span>
+                            </div>
+
+                            <button type="submit">Login</button>
+                            <a id="link" href="/signup">Don't have an account?</a>
+        </form>
+    </div>
+
+<script src="js/loginValidation.js"></script>
+</body>
+
+</html>

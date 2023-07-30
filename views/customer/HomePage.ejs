@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/customer/homepage.css">
+
+
+</head>
+
+<body>
+    <%-include('navbar') -%>
+
+
+        <div class="container">
+
+            <%- include('categorybar') -%>
+
+
+                <div class="content">
+
+
+
+                    <h1>Available Categories</h1>
+                    <div class="categories">
+
+                        <% for(category of allCategories){ %>
+
+                            <%if(category.name!="Featured Products"){%>
+                                <a href="/showAllProducts?categoryName=<%=category.name%>">
+                                    <div class="col-4">
+                                        <img src="images/<%=category.name%> Category/<%=category._id%>.jpg" alt="">
+                                        <h4>
+                                            <%=category.name%>
+                                        </h4>
+                                    </div>
+                                </a>
+                                <%}%>
+                                    <% } %>
+
+                    </div>
+
+
+
+
+                    <% for(category of allCategories){ %>
+                        <%if(category.name!="Featured Products"){%>
+                            <div class="product-header">
+                                <h2>
+                                    <%=category.name%> Category
+                                </h2>
+                                <a href="/showAllProducts?categoryName=<%=category.name%>">View More<i class="fas fa-chevron-right"></i></a>
+
+                            </div>
+                            <div class="categories">
+
+                                <% for(product of allProducts){ %>
+                                    <% if(product.category==category.name){ %>
+                                        <a href="/showProductDetails?productId=<%=product._id%>">
+                                            <div class="col-4">
+                                                <img src="images/<%=category.name%> Category/<%=product._id%>_1.jpg"
+                                                    alt="">
+                                                <h4>
+                                                    <%=product.name%>
+                                                </h4>
+                                            </div>
+                                        </a>
+                                        <%}%>
+                                            <%}%>
+                            </div>
+                            <%}%>
+                                <%} %>
+
+
+
+
+
+
+                              
+                                        <div class="product-header">
+                                            <h2>
+                                                Featured Products
+                                            </h2>
+                                            <a href="/showAllProducts?categoryName=Featured Products">View More<i class="fas fa-chevron-right"></i></a>
+            
+                                        </div>
+                                        <div class="categories">
+            
+                                            <% for(product of allProducts){ %>
+                                                <% if(product.category=="Featured Products"){ %>
+                                                    <a href="/showProductDetails?productId=<%=product._id%>">
+                                                        <div class="col-4">
+                                                            <img src="images/<%=product.category%> Category/<%=product._id%>_1.jpg"
+                                                                alt="">
+                                                            <h4>
+                                                                <%=product.name%>
+                                                            </h4>
+                                                        </div>
+                                                    </a>
+                                                    <%}%>
+                                                        <%}%>
+                                        </div>
+                                       
+
+
+
+
+
+                </div>
+
+        </div>
+
+</body>
+
+</html>

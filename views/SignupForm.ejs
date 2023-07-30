@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/authentication.css">
+    <title>Signup Page</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <form id="signup-form">
+            <h1>Signup</h1>
+
+            <% if( message=="Signup Successful" ){ %>
+
+                <a class="success" href="/login"> ***Signup Successful. Click To
+                    Login***</a>
+
+                <% } else if( message=="Email already exist" ){ %>
+
+                    <h3 class="warning">***Email Already Exist***</h3>
+
+                    <% } else if( message=="Phone# already exist" ){ %>
+
+                        <h3 class="warning">***Phone# already exist***</h3>
+
+                        <% } else if( message=="Email & Phone# already exist" ){ %>
+
+                            <h3 class="warning">***Email & Phone# already exist***</h3>
+
+                            <% } %>
+
+
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name">
+                                    <span id="name-error" class="error-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email">
+                                    <span id="email-error" class="error-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Current Address:</label>
+                                    <input type="text" id="address" name="address">
+                                    <span id="address-error" class="error-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone #:</label>
+                                    <input type="text" id="phone" name="phone">
+                                    <span id="phone-error" class="error-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input type="password" id="password" name="password">
+                                    <span id="password-error" class="error-message"></span>
+                                </div>
+
+
+                                <button type="submit">Sign Up</button>
+
+                                <a id="link" href="/login">Already have an account?</a>
+        </form>
+    </div>
+    <script src="js/signupValidation.js"></script>
+
+</body>
+
+</html>

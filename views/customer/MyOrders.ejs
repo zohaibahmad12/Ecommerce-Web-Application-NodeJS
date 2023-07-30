@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/customer/myorders.css">
+
+
+</head>
+
+<body>
+
+    <%-include('navbar') -%>
+
+
+        <div class="container">
+
+            <%- include('categorybar') -%>
+
+
+                <div class="content">
+
+                    <% if(allOrders.length!=0){%>
+
+                        <main>
+
+                            <% for(order of allOrders){ %>
+
+                                <div class="order">
+
+                                    <div class="orderDetails">
+
+                                        <h1>Order# <%=order._id%>
+                                        </h1>
+                                        <h1>
+                                            <%=order.status%>
+                                        </h1>
+                                    </div>
+
+                                    <div class="basket">
+
+                                        <div class="basket-labels">
+                                            <ul>
+                                                <li class="item item-heading">Item</li>
+                                                <li class="price">Price</li>
+                                                <li class="quantity">Quantity</li>
+                                                <li class="subtotal">Subtotal</li>
+                                            </ul>
+                                        </div>
+
+                                        <% let totalAmount=0 %>
+                                            <% for(product of order.products){%>
+                                                <div class="basket-product">
+                                                    <div class="item">
+                                                        <div class="product-image">
+                                                            <img src="images/<%=product.productCategory%> Category/<%=product.productId%>_1.jpg"
+                                                                alt="Placholder Image 2" class="product-frame">
+                                                        </div>
+                                                        <div class="product-details">
+                                                            <h1><strong>
+                                                                    <%=product.productName%>
+                                                                </strong></h1>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="price">
+                                                        <%=product.productPrice%>
+                                                    </div>
+                                                    <div class="quantity">
+                                                        <%=product.productUserQuantity%>
+                                                    </div>
+                                                    <div class="subtotal">
+                                                        <%=product.productUserQuantity*product.productPrice%>
+                                                    </div>
+
+                                                </div>
+                                                <% totalAmount=totalAmount +
+                                                (product.productUserQuantity*product.productPrice)%>
+                                                    <%}%>
+
+                                                        <div class="order-price">
+                                                            <h1>Total Amount: <%=totalAmount%>
+                                                            </h1>
+                                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <%}%>
+
+                        </main>
+
+                        <%}else{%>
+
+                            <div class="no-order">
+                                <h1>You have not ordered anything yet</h1>
+                            </div>
+
+                            <%}%>
+                </div>
+
+        </div>
+
+
+
+</body>
+
+</html>

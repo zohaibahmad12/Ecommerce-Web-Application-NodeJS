@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/category.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('sidebar') -%>
+
+
+
+            <div class="content">
+
+                <h1><%=categoryName%> Category</h1>
+
+
+                <div class="categories">
+
+                    <% for(let product of allProducts){ %>
+
+                        <a href="/viewSelectedProduct?productId=<%=product._id%>">
+                            <div class="col-4">
+                                <img src="images/<%=product.category%> Category/<%=product._id%>_1.jpg" alt="">
+                                <h4>
+                                    <%=product.name%>
+                                </h4>
+                            </div>
+
+
+                        </a>
+                        <% } %>
+
+                </div>
+
+
+            </div>
+
+    </div>
+
+</body>
+
+</html>

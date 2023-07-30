@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+
+  
+  .content {
+    width: 75%;  
+    padding: 1.5vw;
+    margin-left: 25%;
+  }
+
+
+
+  /* Search Filter CSS */
+  .search-container {
+    background-color: #f7f7f7;
+    border-radius: 0.7vw;
+    padding: 0.5vw;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  h3 {
+    text-align: center;
+    margin-bottom: 0.3vw;
+    font-size: 1.3vw;
+  }
+  
+  .input-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.3vw;
+
+  }
+  
+  .input-group label {
+    width: 15%;
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.1vw;
+  }
+  
+  .input-group input {
+  
+    width: 80%;
+    padding: 0.6vw;
+    border: 1px solid #ccc;
+    border-radius: 0.3vw;
+    font-size: 1vw;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: end;
+    margin-top: 1vw
+   
+  }
+  
+  .button-group button {
+    padding: 0.7vw 1.7vw;
+    border: none;
+    border-radius: 0.3vw;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 1vw;
+    font-size: 1.2vw;
+  }
+  
+  #searchButton {
+    background-color: #4285f4;
+  }
+  
+  #searchButton:hover {
+    background-color: #1967d2;
+  }
+  
+  #resetButton {
+    background-color: #ea4335;
+  }
+  
+  #resetButton:hover {
+    background-color: #cc3d33;
+  }
+
+
+
+  /* Table CSS */
+
+  .table-container {
+
+    font-size: 1.1vw;
+    background-color: #f7f7f7;
+    width: 90%;
+    margin: 3vw auto;
+    padding-top: 0.3vw;
+    padding-bottom: 1vw;
+    padding-left: 1vw;
+    padding-right: 0.5vw;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  th{
+    background-color: black;
+    color: white;
+  }
+ 
+  
+  thead th {
+    padding: 0.8vw;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  tbody td {
+    padding: 0.7vw;
+    border: 1px solid #ddd;
+  }
+  
+  tr{
+    background-color: white;
+  }
+  
+  
+  tbody tr:hover {
+    background-color: #f7f7f7;
+  }
+  
+  button {
+    padding: 0.4vw 0.8vw;
+    background-color: #4285f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.1vw;
+  }
+  
+  button:hover {
+    background-color: #1967d2;
+  }
+
+
+  .no-pending-orders{
+    margin-top: 5vw;
+    text-align: center;
+  }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/adminMessage.css">
+
+
+</head>
+
+<body>
+
+
+
+    <div class="container">
+
+        <%- include('sidebar') -%>
+
+
+            <div class="content">
+
+                <% if(message=="Order Verified" ){ %>
+
+                    <h1>Order Verified Successfully</h1>
+
+                    <div class="message-buttons">
+                        <a href="/PendingOrders"><button class="go-to-cart">Back to Pending Orders</button></a>
+                        <a href="/admin"><button class="back-to-home">Back To Admin HomePage</button></a>
+                    </div>
+
+                    <%}else if(message=="Order Cancelled" ){%>
+
+                        <h1>Order Cancelled Successfully</h1>
+
+                        <div class="message-buttons">
+                            <a href="/PendingOrders"><button class="go-to-cart">Back to Pending Orders</button></a>
+                            <a href="/admin"><button class="back-to-home">Back To Admin HomePage</button></a>
+                        </div>
+
+                        <%}%>
+
+            </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

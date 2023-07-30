@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/css/customer/productDetails.css">
+
+
+</head>
+
+<body>
+  <%-include('navbar') -%>
+
+
+    <div class="container">
+
+      <%- include('categorybar') -%>
+
+
+        <div class="content">
+
+          <div class="productImages">
+
+            <img id="main-image" src="images/<%=product.category%> Category/<%=product._id%>_1.jpg"
+              alt="This is Main Image" class="main-image">
+
+            <div class="small-images">
+              <img id="small-image-1" src="images/<%=product.category%> Category/<%=product._id%>_2.jpg"
+                alt="This is small Image" class="small-image">
+              <img id="small-image-2" src="images/<%=product.category%> Category/<%=product._id%>_3.jpg"
+                alt="This is small Image" class="small-image">
+            </div>
+
+            <% if(product.quantity>0){ %>
+              <a href="/addToCart?productId=<%=product._id%>">
+                <button class="cart-button">Add To Cart</button>
+              </a>
+              <%}else{%>
+                <h3 class="out-of-stock">Out of Stock</h3>
+
+                <%}%>
+          </div>
+
+          <div class="productData">
+            <h1>
+              <%=product.name%>
+            </h1>
+            <p>
+              <%=product.category%>
+            </p>
+            <h3 class="price">
+              <%=product.price%>RS
+            </h3>
+            <h3>Availability: <span>
+                <%=product.quantity%>
+              </span></h3>
+            <h3 class="details">Product Details: </h3>
+            <p>
+              <%=product.description%>
+            </p>
+          </div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+
+      let mainImage = document.getElementById("main-image");
+      let smallImage1 = document.getElementById("small-image-1");
+      let smallImage2 = document.getElementById("small-image-2");
+
+      smallImage1.addEventListener("click", () => {
+        let hold;
+        hold = smallImage1.src;
+        smallImage1.src = mainImage.src;
+        mainImage.src = hold;
+      })
+
+      smallImage2.addEventListener("click", () => {
+        let hold;
+        hold = smallImage2.src;
+        smallImage2.src = mainImage.src;
+        mainImage.src = hold;
+      })
+
+    </script>
+
+</body>
+
+</html>
