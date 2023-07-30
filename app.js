@@ -662,6 +662,7 @@ app.get("/pendingOrders", async (req, res) => {
         if (req.query.searchQuery) {
 
             const searchQuery = JSON.parse(req.query.searchQuery);
+            searchQuery.status="Pending";
             const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
             res.render("PendingOrders", { allOrders, searchQuery });
         }
@@ -678,6 +679,10 @@ app.get("/pendingOrders", async (req, res) => {
 
 
 })
+
+
+
+
 
 
 
@@ -737,6 +742,9 @@ app.get("/approvePendingOrder",async(req,res)=>{
 
 
 
+
+
+
 app.get("/cancelPendingOrder",async(req,res)=>{
 
     const orderId=req.query.orderId;
@@ -748,6 +756,152 @@ app.get("/cancelPendingOrder",async(req,res)=>{
         console.log(err);
     }
 })
+
+
+
+app.get("/verifiedOrders", async (req, res) => {
+
+    try {
+        if (req.query.searchQuery) {
+
+            const searchQuery = JSON.parse(req.query.searchQuery);
+            searchQuery.status="Verified";
+            const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
+            res.render("VerifiedOrders", { allOrders, searchQuery });
+        }
+        else {
+            const allOrders = await Order.find({ status: "Verified" }).sort({ date: -1 });
+            res.render("VerifiedOrders", { allOrders });
+        }
+
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+})
+
+
+
+
+
+
+
+app.post("/verifiedOrdersSearchFilter", async (req, res) => {
+
+    const { orderNumber, userEmail } = req.body;
+
+
+    const query = {};
+
+    if (orderNumber) query._id = orderNumber;
+    if (userEmail) query.userEmail = userEmail;
+
+
+    stringQuery = JSON.stringify(query);
+    res.redirect(`/verifiedOrders?searchQuery=${stringQuery}`);
+})
+
+
+
+
+
+
+app.get("/viewSelectedVerifiedOrder", async (req, res) => {
+
+    const orderId = req.query.orderId;
+
+    const order = await Order.findOne({ _id: orderId });
+
+    res.render("viewSelectedVerifiedOrder", { order });
+
+
+})
+
+
+
+
+
+app.get("/completeVerifiedOrder",async(req,res)=>{
+
+    const orderId=req.query.orderId;
+
+    try {
+        await Order.updateOne({_id:orderId},{status:"Delivered"})
+        res.redirect("/adminMessage?message=Order Delivered")
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+
+
+
+
+
+
+app.get("/completedOrders", async (req, res) => {
+
+    try {
+        if (req.query.searchQuery) {
+
+            const searchQuery = JSON.parse(req.query.searchQuery);
+            searchQuery.status="Delivered";
+          
+            const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
+            res.render("CompletedOrders", { allOrders, searchQuery });
+        }
+        else {
+            const allOrders = await Order.find({ status: "Delivered" }).sort({ date: -1 });
+            res.render("CompletedOrders", { allOrders });
+        }
+
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+})
+
+
+
+app.post("/completedOrdersSearchFilter", async (req, res) => {
+
+    const { orderNumber, userEmail } = req.body;
+
+
+    const query = {};
+
+    if (orderNumber) query._id = orderNumber;
+    if (userEmail) query.userEmail = userEmail;
+
+
+    stringQuery = JSON.stringify(query);
+    res.redirect(`/completedOrders?searchQuery=${stringQuery}`);
+})
+
+
+
+
+
+
+app.get("/viewSelectedCompletedOrder", async (req, res) => {
+
+    const orderId = req.query.orderId;
+
+    const order = await Order.findOne({ _id: orderId });
+
+    res.render("viewSelectedCompletedOrder", { order });
+
+
+})
+
+
+
 
 
 
@@ -935,7 +1089,7 @@ app.get("/placeOrder", async (req, res) => {
 
 app.get("/myOrders", async (req, res) => {
 
-    const allOrders = await Order.find({ userId: "64aafaba465fb28476a0cb6e" });
+    const allOrders = await Order.find({ userId: "64aafaba465fb28476a0cb6e" }).sort({date:-1});
     res.render("customer/MyOrders", { allOrders })
 })
 

@@ -36,10 +36,20 @@
 
                         <div class="message-buttons">
                             <a href="/PendingOrders"><button class="go-to-cart">Back to Pending Orders</button></a>
-                            <a href="/admin"><button class="back-to-home">Back To Admin HomePage</button></a>
+                            <a href="/admin"><button class="back-to-home">Back To Admin Home Page</button></a>
                         </div>
 
-                        <%}%>
+                        <%}else if(message=="Order Delivered" ){%>
+
+                            <h1>Order is marked as Completed/Delivered</h1>
+
+                            <div class="message-buttons">
+                                <a href="/VerifiedOrders"><button class="go-to-cart">Back to Verified
+                                        Orders</button></a>
+                                <a href="/admin"><button class="back-to-home">Back To Admin Home Page</button></a>
+                            </div>
+
+                            <%}%>
 
             </div>
 

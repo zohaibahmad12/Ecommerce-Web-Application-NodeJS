@@ -77,11 +77,16 @@
 
                                                 </div>
                                                 <% totalAmount=totalAmount +
-                                                (product.productUserQuantity*product.productPrice)%>
+                                                    (product.productUserQuantity*product.productPrice)%>
                                                     <%}%>
 
                                                         <div class="order-price">
                                                             <h1>Total Amount: <%=totalAmount%>
+                                                            </h1>
+                                                        </div>
+                                                        <div class="order-date">
+                                                            <h1>
+                                                                <%=order.date.toLocaleString()%>
                                                             </h1>
                                                         </div>
 

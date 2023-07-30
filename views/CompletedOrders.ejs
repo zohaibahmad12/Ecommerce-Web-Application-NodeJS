@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/pendingorders.css">
+
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('sidebar') -%>
+
+
+
+            <div class="content">
+
+
+                <form id="search-filter" action="/pendingOrdersSearchFilter" method="POST">
+                    <div class="search-container">
+                        <h3>Search Filters</h3>
+                        <div class="input-group">
+                            <label for="orderNumber">Order#:</label>
+                            <% if(typeof(searchQuery)=="undefined" ){%>
+                                <input type="text" id="orderNumber" name="orderNumber" placeholder="Enter Order#">
+                                <%}else{%>
+                                    <input type="text" id="orderNumber" name="orderNumber" placeholder="Enter Order#"
+                                        value="<%=searchQuery._id%>">
+                                    <%}%>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="userEmail">User Email:</label>
+                            <% if(typeof(searchQuery)=="undefined" ){%>
+                                <input type="text" id="userEmail" name="userEmail" placeholder="Enter User Email">
+                                <%}else{%>
+                                    <input type="text" id="userEmail" name="userEmail" placeholder="Enter User Email"
+                                        value="<%=searchQuery.userEmail%>">
+                                    <%}%>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" id="searchButton">Search</button>
+                            <a href="/completedOrders">
+                                <button type="button" id="resetButton">Reset</button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <% if(allOrders!=undefined && allOrders.length!=0){%>
+                    <div class="table-container">
+                        <h3>All Completed/Delivered Orders</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Order #</th>
+                                    <th>Order Amount</th>
+                                    <th>Order Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(order of allOrders){ %>
+                                    <tr>
+                                        <td>
+                                            <%= order.userName %>
+                                        </td>
+                                        <td>
+                                            <%= order._id%>
+                                        </td>
+
+                                        <% let totalAmount=0 %>
+                                            <% for(product of order.products){%>
+
+                                                <% totalAmount=totalAmount+
+                                                    (product.productPrice*product.productUserQuantity)%>
+
+                                                    <%}%>
+
+                                                        <td>
+                                                            <%= totalAmount %>
+                                                        </td>
+                                                        <td>
+                                                            <%= order.date.toLocaleString() %>
+                                                        </td>
+                                                        <td> <a href="/viewSelectedCompletedOrder?orderId=<%=order._id%>"><button>View
+                                                                    Details</button></a></td>
+                                    </tr>
+
+                                    <% } %>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%}else{%>
+
+                        <h1 class="no-pending-orders">No Orders Available</h1>
+                        <%}%>
+            </div>
+
+    </div>
+
+    <script>
+
+        document.getElementById("search-filter").addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const inputElement = document.getElementById('orderNumber');
+            const inputValue = inputElement.value.trim();
+
+            if (inputValue != "") {
+
+                const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
+
+
+
+                if (objectIdRegExp.test(inputValue)) {
+
+                    this.action = "/completedOrdersSearchFilter";
+                    this.method = "POST";
+                    this.submit();
+                } else {
+
+                    alert("Order# is invalid!!!!")
+                    return;
+                }
+            }
+            else {
+
+                this.action = "/completedOrdersSearchFilter";
+                this.method = "POST";
+                this.submit();
+            }
+
+
+        });
+
+
+    </script>
+</body>
+
+</html>

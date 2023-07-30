@@ -354,8 +354,15 @@ main .basket{
   padding: 1vw 0vw;
   float: right;
 }
-.order-price h1{
-font-size: 1rem;
+.order-price h1,.order-date h1{
+font-size: 1.2vw;
+}
+.order-date{
+    
+  text-align: right;
+  color: gray;
+  padding: 1vw 0vw;
+  float: left;
 }
 
 .no-order{
