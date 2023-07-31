@@ -1,91 +1,106 @@
  .navbar {
 
-     display: flex;
-     height: 3vw;
-     background-color: black;
-     color: white;
-     justify-content: space-between;
-     padding: 0.5vw;
+    display: flex;
+    height: 3vw;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    padding: 0.5vw;
 
  }
 
  .leftNavbar {
-     display: flex;
-     align-items: center;
-     margin-left: 1vw;
+    display: flex;
+    align-items: center;
+    margin-left: 1vw;
  }
 
  .rightNavbar {
-     display: flex;
-     align-items: center;
-     list-style: none;
-     justify-content:space-evenly;
-     width: 30%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    justify-content: space-evenly;
+    width: 30%;
  }
 
  .rightNavbar a {
-     text-decoration: none;
-     font-size: 1.2vw;
-     color: white;
+    text-decoration: none;
+    font-size: 1.2vw;
+    color: white;
  }
 
 
 
- .searchDiv{
+ .searchDiv {
     height: 3vw;
     padding: 1vw 2vw;
     display: flex;
     align-items: center;
-    justify-content:flex-start;
+    justify-content: flex-start;
     background-color: #333;
+   
+
+ }
+
+ .logo-name {
+    width: 30%;
    
  }
 
- .logo-name{
-   width: 26%;
-   
-   
+ .logo-name h3 {
+    color: lightgrey;
  }
- .logo-name h3{
-   color: lightgrey;
+
+ .logo-name h3:hover {
+    color: white;
+    cursor: pointer;
  }
- .logo-name h3:hover{
-   color: white;
-   cursor: pointer;
- }
- .searchDiv input{
+
+ .searchDiv form {
+    display: flex;
+    align-items: center;
     width: 40%;
+    
+ }
+
+ .searchDiv input {
+    width: 80%;
     padding: 1vw;
     font-size: 1vw;
     border: none;
-    
+
  }
- .searchDiv input:focus{
+
+ .searchDiv input:focus {
     outline: none;
  }
- .searchDiv button{
-   
+
+ .searchDiv button {
+
+    width: 10%;
     padding: 0.8vw;
     font-size: 1vw;
     border: none;
     background-color: white;
-   
+
  }
- .searchDiv button:hover{
+
+ .searchDiv button:hover {
     cursor: pointer;
  }
- .searchDiv button i{
+
+ .searchDiv button i {
     font-size: 1.5vw;
  }
 
- .searchDiv a{
+ .searchDiv a {
     text-decoration: none;
     font-size: 1.2vw;
     color: white;
     margin-left: 2vw;
  }
 
- .searchDiv a i{
+ .searchDiv a i {
     font-size: 2vw;
  }
 
@@ -94,11 +109,11 @@
     z-index: 1;
     top: 0;
     width: 100%;
-  }
-  .searchDiv {
+ }
+
+ .searchDiv {
     position: fixed;
     z-index: 1;
     top: 4vw;
     width: 100%;
-  }
-  
+ }

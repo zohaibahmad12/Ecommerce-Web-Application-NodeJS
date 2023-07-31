@@ -29,8 +29,22 @@
   <a class="logo-name" href="/">
     <h3>ClickMart</h3>
   </a>
-  <input type="text" id="search-bar" placeholder="Search...">
-  <button type="button" id="search-button"><i class="fa fa-search"></i></button>
+
+  <form action="/searchAProduct" method="post">
+    <% if(typeof searchedProduct=="undefined" ){%>
+
+      <input name="searchedProduct" type="text" id="search-bar" placeholder="Search...">
+
+      <%}else{%>
+
+        <input name="searchedProduct" type="text" id="search-bar" placeholder="Search..." value="<%=searchedProduct%>">
+
+        <%}%>
+
+
+          <button type="submit" id="search-button"><i class="fa fa-search"></i></button>
+  </form>
+
   <a href="/myCart"><i class="fas fa-shopping-cart"></i></a>
 
 </div>

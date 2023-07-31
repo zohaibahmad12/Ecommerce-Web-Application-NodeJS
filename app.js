@@ -662,7 +662,7 @@ app.get("/pendingOrders", async (req, res) => {
         if (req.query.searchQuery) {
 
             const searchQuery = JSON.parse(req.query.searchQuery);
-            searchQuery.status="Pending";
+            searchQuery.status = "Pending";
             const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
             res.render("PendingOrders", { allOrders, searchQuery });
         }
@@ -728,12 +728,12 @@ app.get("/viewSelectedPendingOrder", async (req, res) => {
 
 
 
-app.get("/approvePendingOrder",async(req,res)=>{
+app.get("/approvePendingOrder", async (req, res) => {
 
-    const orderId=req.query.orderId;
+    const orderId = req.query.orderId;
 
     try {
-        await Order.updateOne({_id:orderId},{status:"Verified"})
+        await Order.updateOne({ _id: orderId }, { status: "Verified" })
         res.redirect("/adminMessage?message=Order Verified")
     } catch (err) {
         console.log(err);
@@ -745,12 +745,12 @@ app.get("/approvePendingOrder",async(req,res)=>{
 
 
 
-app.get("/cancelPendingOrder",async(req,res)=>{
+app.get("/cancelPendingOrder", async (req, res) => {
 
-    const orderId=req.query.orderId;
+    const orderId = req.query.orderId;
 
     try {
-        await Order.updateOne({_id:orderId},{status:"Cancelled"})
+        await Order.updateOne({ _id: orderId }, { status: "Cancelled" })
         res.redirect("/adminMessage?message=Order Cancelled")
     } catch (err) {
         console.log(err);
@@ -765,7 +765,7 @@ app.get("/verifiedOrders", async (req, res) => {
         if (req.query.searchQuery) {
 
             const searchQuery = JSON.parse(req.query.searchQuery);
-            searchQuery.status="Verified";
+            searchQuery.status = "Verified";
             const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
             res.render("VerifiedOrders", { allOrders, searchQuery });
         }
@@ -824,12 +824,12 @@ app.get("/viewSelectedVerifiedOrder", async (req, res) => {
 
 
 
-app.get("/completeVerifiedOrder",async(req,res)=>{
+app.get("/completeVerifiedOrder", async (req, res) => {
 
-    const orderId=req.query.orderId;
+    const orderId = req.query.orderId;
 
     try {
-        await Order.updateOne({_id:orderId},{status:"Delivered"})
+        await Order.updateOne({ _id: orderId }, { status: "Delivered" })
         res.redirect("/adminMessage?message=Order Delivered")
     } catch (err) {
         console.log(err);
@@ -848,8 +848,8 @@ app.get("/completedOrders", async (req, res) => {
         if (req.query.searchQuery) {
 
             const searchQuery = JSON.parse(req.query.searchQuery);
-            searchQuery.status="Delivered";
-          
+            searchQuery.status = "Delivered";
+
             const allOrders = await Order.find(searchQuery).sort({ date: -1 }); //date in descending order
             res.render("CompletedOrders", { allOrders, searchQuery });
         }
@@ -907,11 +907,18 @@ app.get("/viewSelectedCompletedOrder", async (req, res) => {
 
 
 
-app.get("/adminMessage",(req,res)=>{
+app.get("/adminMessage", (req, res) => {
 
-    console.log(req.query.message);
-    res.render("adminMessage",{message:req.query.message});
+    res.render("adminMessage", { message: req.query.message });
 })
+
+
+
+
+
+
+
+
 
 
 
@@ -933,9 +940,28 @@ app.get("/", async (req, res) => {
 
 app.get("/showAllProducts", async (req, res) => {
 
-    const categoryName = req.query.categoryName;
-    const allProducts = await Product.find({ category: categoryName });
-    res.render("customer/AllProducts", { allProducts, categoryName });
+    try {
+
+        if (req.query.searchedProduct) {
+
+            const searchedProduct=req.query.searchedProduct;
+            const regexPattern = new RegExp(searchedProduct);
+
+            const allProducts = await Product.find({ name: { $regex: regexPattern, $options: "i" } });
+           
+            res.render("customer/AllProducts", { allProducts,searchedProduct });
+        }
+        else {
+            const categoryName = req.query.categoryName;
+            const allProducts = await Product.find({ category: categoryName });
+            res.render("customer/AllProducts", { allProducts, categoryName });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
 })
 
 
@@ -1071,7 +1097,7 @@ app.get("/placeOrder", async (req, res) => {
         userName: "Zohaib Ahmad",
         userEmail: "zohaibsattar472@gmail.com",
         userPhone: "+923014284128",
-        userAddress:"Ali Town, Orange Line Station, Lahore",
+        userAddress: "Ali Town, Orange Line Station, Lahore",
         status: "Pending",
         date: new Date(),
         products: req.session.cart
@@ -1089,12 +1115,68 @@ app.get("/placeOrder", async (req, res) => {
 
 app.get("/myOrders", async (req, res) => {
 
-    const allOrders = await Order.find({ userId: "64aafaba465fb28476a0cb6e" }).sort({date:-1});
-    res.render("customer/MyOrders", { allOrders })
+    try {
+
+        if (req.query.searchQuery) {
+
+            const searchQuery = JSON.parse(req.query.searchQuery);
+            searchQuery.userId = "64aafaba465fb28476a0cb6e";
+
+            const allOrders = await Order.find(searchQuery).sort({ date: -1 });
+            res.render("customer/MyOrders", { allOrders, searchQuery })
+        }
+        else {
+            const allOrders = await Order.find({ userId: "64aafaba465fb28476a0cb6e" }).sort({ date: -1 });
+            res.render("customer/MyOrders", { allOrders })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+
 })
 
 
 
+
+app.post("/myOrdersSearchFilter", async (req, res) => {
+
+    const { orderStatus, orderDate } = req.body;
+
+
+    const query = {};
+
+    if (orderStatus && orderStatus != "undefined") query.status = orderStatus;
+    if (orderDate) {
+        const startDate = new Date(orderDate);
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 1);
+        query.date = { $gte: startDate, $lt: endDate }
+    }
+
+
+   
+
+    stringQuery = JSON.stringify(query);
+    res.redirect(`/myOrders?searchQuery=${stringQuery}`);
+})
+
+
+
+app.post("/searchAProduct", async (req, res) => {
+
+ 
+
+    if (req.body.searchedProduct=="") {
+        res.redirect("/")
+    }
+    else{
+        const searchedProduct = req.body.searchedProduct;
+        res.redirect(`showAllProducts?searchedProduct=${searchedProduct}`);
+    }
+    
+   
+})
 
 
 app.get("/message", (req, res) => {

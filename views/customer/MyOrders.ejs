@@ -22,6 +22,69 @@
 
                 <div class="content">
 
+
+
+
+
+
+                    <form id="search-filter" action="/myOrdersSearchFilter" method="POST">
+                        <div class="search-container">
+                            <h3>Search Filters</h3>
+                            <div class="input-group">
+                                <label for="orderStatus">Order Status:</label>
+                                <% if(typeof(searchQuery)=="undefined" || !searchQuery.status){%>
+
+                                    <select id="orderStatus" name="orderStatus">
+                                        <option value="undefined">Select One</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Verified">Verified</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select>
+                                    <%}else{%>
+                                        <select class="orderStatus" id="orderStatus" name="orderStatus">
+                                            <option value="undefined">Select One</option>
+                                            <option  value="Pending" <% if(searchQuery.status=="Pending"){ %> selected <%}%>>Pending</option>
+                                            <option value="Verified" <% if(searchQuery.status=="Verified"){ %> selected <%}%>>Verified</option>
+                                            <option value="Cancelled" <% if(searchQuery.status=="Cancelled"){ %> selected <%}%>>Cancelled</option>
+                                            <option value="Delivered" <% if(searchQuery.status=="Delivered"){ %> selected <%}%>>Delivered</option>
+
+                                        </select>
+                                        <%}%>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="orderDate">Order Date:</label>
+                                <% if(typeof(searchQuery)=="undefined" || !searchQuery.date){%>
+                                    <input type="date" id="orderDate" name="orderDate">
+                                    <%}else{%>
+                                        <% const year=searchQuery.date.$gte.getFullYear() %>
+                                            <% let month=searchQuery.date.$gte.getMonth() %>
+                                                <% month=String(month+1).padStart(2,"0")%>
+                                                    <% const date=searchQuery.date.$gte.getDate() %>
+                                                        <% const fullDate=year+"-"+month+"-"+date %>
+                                                            <input type="date" id="orderDate" name="orderDate"
+                                                                value="<%=fullDate%>">
+                                                                
+                                                            <%}%>
+                            </div>
+
+                            <div class="button-group">
+                                <button type="submit" id="searchButton">Search</button>
+                                <a href="/myOrders">
+                                    <button type="button" id="resetButton">Reset</button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+
+
+
+
                     <% if(allOrders.length!=0){%>
 
                         <main>
@@ -103,7 +166,7 @@
                         <%}else{%>
 
                             <div class="no-order">
-                                <h1>You have not ordered anything yet</h1>
+                                <h1>No Orders</h1>
                             </div>
 
                             <%}%>
@@ -111,6 +174,9 @@
 
         </div>
 
+
+   
+ 
 
 
 </body>

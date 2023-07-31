@@ -11,7 +11,18 @@
 </head>
 
 <body>
-    <%-include('navbar') -%>
+
+    <% if(typeof searchedProduct=="undefined" ){%>
+
+        <%-include('navbar') -%>
+
+        <%}else{%>
+
+            <%-include('navbar',{searchedProduct}) -%>
+
+            <%}%>
+
+   
 
 
         <div class="container">
@@ -21,23 +32,30 @@
 
                 <div class="content">
 
-                  
-                        <h1><%=categoryName%> Category</h1>
-                        
+                    <% if(typeof searchedProduct=="undefined" ){%>
 
-                    <div class="categories">
+                        <h1>
+                            <%=categoryName%> Category
+                        </h1>
+                        <%}else{%>
+                            <h1>All Related Matches</h1>
 
-                       <% for(product of allProducts){ %>
-                        <a href="/showProductDetails?productId=<%=product._id%>">
-                            <div class="col-4">
-                                <img src="images/<%=product.category%> Category/<%=product._id%>_1.jpg" alt="">
-                                <h4>
-                                   <%=product.name%>
-                                </h4>
-                            </div>
-                        </a>
-<%} %>
-                    </div>
+                            <%}%>
+
+                                <div class="categories">
+
+                                    <% for(product of allProducts){ %>
+                                        <a href="/showProductDetails?productId=<%=product._id%>">
+                                            <div class="col-4">
+                                                <img src="images/<%=product.category%> Category/<%=product._id%>_1.jpg"
+                                                    alt="">
+                                                <h4>
+                                                    <%=product.name%>
+                                                </h4>
+                                            </div>
+                                        </a>
+                                        <%} %>
+                                </div>
 
 
 

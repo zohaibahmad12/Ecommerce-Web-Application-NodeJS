@@ -19,8 +19,6 @@ body {
 .content {
     width: 80%;
     padding: 1vw;
-    display: flex;
-
 
 }
 
@@ -33,6 +31,97 @@ body {
 
 
 
+
+
+
+/* Search Filter CSS */
+.search-container {
+  background-color: white;
+  border-radius: 0.7vw;
+  border: 1px solid lightgray;
+  padding: 0.5vw;
+  margin: 0 auto;
+  margin-bottom: 2vw;
+}
+
+.search-container h3 {
+  text-align: center;
+  margin-bottom: 0.3vw;
+  font-size: 1.3vw;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.3vw;
+
+}
+
+.input-group label {
+  width: 15%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.1vw;
+}
+
+.input-group input {
+
+  width: 80%;
+  padding: 0.6vw;
+  border: 1px solid #ccc;
+  border-radius: 0.3vw;
+  font-size: 1vw;
+}
+
+.input-group select{
+  width: 82%;
+  padding: 0.6vw;
+  border: 1px solid #ccc;
+  border-radius: 0.3vw;
+  font-size: 1vw;
+}
+
+.button-group {
+  display: flex;
+  justify-content: end;
+  margin-top: 1vw
+ 
+}
+
+.button-group button {
+  padding: 0.7vw 1.7vw;
+  border: none;
+  border-radius: 0.3vw;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 1vw;
+  font-size: 1.2vw;
+}
+
+#searchButton {
+  background-color: #4285f4;
+}
+
+#searchButton:hover {
+  background-color: #1967d2;
+}
+
+#resetButton {
+  background-color: #ea4335;
+}
+
+#resetButton:hover {
+  background-color: #cc3d33;
+}
+
+
+
+
+
+
+/* Orders CSS */
 strong {
   font-weight: bold;
 }
@@ -368,6 +457,8 @@ font-size: 1.2vw;
 .no-order{
   font-size: 2vw;
   margin: 0 auto;
+  text-align: center;
+  padding: 1vw;
 }
 .no-order h1{
  font-size: 2vw;
